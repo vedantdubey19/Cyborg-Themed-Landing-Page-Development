@@ -1003,8 +1003,9 @@ a:hover {
 .blueprint-section {
   padding: 100px 80px;
   border-top: 1px solid var(--border-cyan);
-  background: var(--bg-dark);
+  background: rgba(5, 6, 8, 0.55);
   position: relative;
+  z-index: 2;
 }
 
 .blueprint-layout {
@@ -1225,7 +1226,9 @@ a:hover {
 .diagnostics-section {
   padding: 100px 80px;
   border-top: 1px solid var(--border-cyan);
-  background: var(--bg-dark);
+  background: rgba(5, 6, 8, 0.55);
+  z-index: 2;
+  position: relative;
 }
 
 .diagnostics-panel {
@@ -1483,7 +1486,9 @@ input[type="range"]::-webkit-slider-thumb:hover {
 .faq-section {
   padding: 100px 80px;
   border-top: 1px solid var(--border-cyan);
-  background: var(--bg-dark);
+  background: rgba(5, 6, 8, 0.55);
+  z-index: 2;
+  position: relative;
 }
 
 .faq-container {
@@ -1697,6 +1702,362 @@ input[type="range"]::-webkit-slider-thumb:hover {
   max-width: 500px;
   text-align: right;
   line-height: 1.4;
+}
+
+/* ==========================================
+   AETHERIS WEBGL CANVAS & 3D INTERACTIVE UI
+   ========================================== */
+#three-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0; /* Let WebGL act as global space grid */
+}
+
+/* Ensure key sections sit on top of ThreeJS grid canvas */
+.hero, .navbar, .lab-section, .features-section, .configurator-section, .footer {
+  position: relative;
+  z-index: 2;
+}
+
+/* Countdown Grid Dashboard */
+.countdown-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 480px;
+  margin-top: 10px;
+}
+
+.countdown-card {
+  background: rgba(12, 15, 22, 0.7);
+  border: 1px solid var(--border-cyan);
+  border-radius: 4px;
+  padding: 12px 6px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.08);
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+  border-bottom: 2px solid var(--cyan);
+}
+
+.countdown-num {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.countdown-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+/* Hologram visual wireframe borders for showcasing Three.js centerpiece in hero */
+.hologram-visual-frame {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 1;
+  border: 1px solid rgba(0, 240, 255, 0.08);
+  background: rgba(12, 15, 22, 0.1);
+  backdrop-filter: blur(2px);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 35px rgba(0, 240, 255, 0.03);
+}
+
+.visual-corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: var(--cyan);
+  border-style: solid;
+  opacity: 0.5;
+}
+
+.visual-corner.tc { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+.visual-corner.tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
+.visual-corner.bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
+.visual-corner.br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+.watermark {
+  position: absolute;
+  bottom: 12px;
+  right: 14px;
+  font-size: 10px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  letter-spacing: 0.1em;
+}
+
+/* Hologram Ticket Card Compiling Form Styles */
+.ticket-form-panel {
+  background: rgba(12, 15, 22, 0.6);
+  border: 1px solid var(--border-cyan);
+  padding: 30px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: inset 0 0 25px rgba(0, 240, 255, 0.05);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.form-label {
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  letter-spacing: 0.15em;
+}
+
+.form-input {
+  background: var(--bg-tech);
+  border: 1px solid var(--border-cyan);
+  color: var(--text-primary);
+  border-radius: 4px;
+  padding: 12px 16px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.form-input:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan-dim);
+}
+
+select.form-input {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2300f0ff' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+
+select.form-input option {
+  background: var(--bg-dark);
+  color: var(--text-primary);
+}
+
+/* Holographic 3D Interactive Ticket Pass */
+.ticket-display-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1200px; /* 3D Tilt perspective context */
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+}
+
+.ticket-card {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  height: 460px;
+  background: rgba(12, 15, 22, 0.45);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 
+              inset 0 0 40px rgba(0, 240, 255, 0.05);
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out, border-color 0.4s ease;
+  cursor: grab;
+}
+
+.ticket-card:active {
+  cursor: grabbing;
+}
+
+/* Interactive glare sheen layer */
+.ticket-glare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.ticket-card:hover .ticket-glare {
+  opacity: 1;
+}
+
+.ticket-inner {
+  padding: 30px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform: translateZ(40px); /* Extrude inner details into Z space */
+  transform-style: preserve-3d;
+}
+
+.ticket-header-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+  padding-bottom: 14px;
+}
+
+.ticket-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  padding: 4px 10px;
+  background: var(--cyan-dim);
+  border: 1px solid var(--border-cyan);
+  color: var(--cyan);
+  border-radius: 4px;
+  letter-spacing: 0.1em;
+  box-shadow: 0 0 10px var(--cyan-glow);
+  text-shadow: 0 0 5px var(--cyan);
+}
+
+/* VIP Access tier modifiers */
+.ticket-card.vip {
+  border-color: rgba(255, 0, 85, 0.45);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 
+              inset 0 0 40px rgba(255, 0, 85, 0.05);
+}
+
+.ticket-card.vip .ticket-badge {
+  background: var(--magenta-dim);
+  border-color: var(--border-magenta-active);
+  color: var(--magenta);
+  box-shadow: 0 0 10px var(--magenta-glow);
+  text-shadow: 0 0 5px var(--magenta);
+}
+
+/* Hacker Elite tier modifiers */
+.ticket-card.hacker {
+  border-color: rgba(0, 255, 102, 0.45);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 
+              inset 0 0 40px rgba(0, 255, 102, 0.05);
+}
+
+.ticket-card.hacker .ticket-badge {
+  background: rgba(0, 255, 102, 0.1);
+  border-color: var(--green);
+  color: var(--green);
+  box-shadow: 0 0 10px var(--green-glow);
+  text-shadow: 0 0 5px var(--green);
+}
+
+.ticket-middle {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin-top: 24px;
+  margin-bottom: auto;
+  transform: translateZ(50px); /* Secondary extrude depth */
+}
+
+.ticket-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ticket-field .lbl {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+.ticket-field .val {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.ticket-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-top: 1px dashed rgba(255, 255, 255, 0.08);
+  padding-top: 20px;
+  margin-top: 24px;
+  transform: translateZ(30px);
+}
+
+.ticket-barcode {
+  display: flex;
+  align-items: stretch;
+  height: 44px;
+  gap: 2px;
+  opacity: 0.55;
+}
+
+.bar-line {
+  background: var(--text-primary);
+}
+
+.ticket-qr-container {
+  width: 55px;
+  height: 55px;
+  color: var(--cyan);
+  filter: drop-shadow(0 0 5px var(--cyan-glow));
+}
+
+.ticket-card.vip .ticket-qr-container {
+  color: var(--magenta);
+  filter: drop-shadow(0 0 5px var(--magenta-glow));
+}
+
+.ticket-card.hacker .ticket-qr-container {
+  color: var(--green);
+  filter: drop-shadow(0 0 5px var(--green-glow));
+}
+
+.ticket-qr {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.ticket-footer-text {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 10px;
+}
+
+/* Adjustments to default customizer options spacing for input panel layout */
+.ticket-form-panel .btn {
+  margin-top: 10px;
 }
 
 /* ==========================================

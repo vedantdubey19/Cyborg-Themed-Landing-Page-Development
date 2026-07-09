@@ -3,11 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="NEURASYNAPSE: Premium Cyborg and Cybernetic Augmentation Laboratory. Evolve beyond human limits with medical-grade neural overlays, sensory oculars, and bionic chassis systems.">
-  <title>NEURASYNAPSE // Cybernetic Enhancements & Augmentation Lab</title>
+  <meta name="description" content="AETHERIS TECHFEST 2026: The Global Cybernetic & Technology Festival. Experience scroll-driven 3D WebGL animations, interactive hackathons, keynotes, and construct your personalized 3D access pass.">
+  <title>AETHERIS // Global Interactive Techfest 2026</title>
   <link rel="stylesheet" href="index.css">
+  <!-- Load Three.js from a robust CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
+
+  <!-- WebGL Background Canvas -->
+  <canvas id="three-canvas"></canvas>
 
   <!-- Fixed Heads-Up Display Border Frame -->
   <div class="hud-border"></div>
@@ -18,22 +23,22 @@
   <audio id="snd-boot" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-84.wav" preload="auto"></audio>
 
   <!-- ==========================================
-       NAVIGATION BAR
+       NAVIGATION BAR (HUD CONTROLS)
        ========================================== -->
   <nav class="navbar" id="main-nav">
     <div class="logo">
       <svg viewBox="0 0 24 24" stroke="currentColor">
         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
       </svg>
-      <span class="mono cyan-glow">NEURASYNAPSE</span>
+      <span class="mono cyan-glow">AETHERIS // '26</span>
     </div>
     
     <ul class="nav-links" id="nav-menu">
-      <li><a href="#hero" class="nav-item">System</a></li>
-      <li><a href="#lab" class="nav-item">Augment Lab</a></li>
-      <li><a href="#blueprints" class="nav-item">Blueprints</a></li>
-      <li><a href="#features" class="nav-item">Enhancements</a></li>
-      <li><a href="#diagnostics" class="nav-item">Telemetry</a></li>
+      <li><a href="#hero" class="nav-item">Core Link</a></li>
+      <li><a href="#zones" class="nav-item">Tech Zones</a></li>
+      <li><a href="#timeline" class="nav-item">Event Timeline</a></li>
+      <li><a href="#telemetry" class="nav-item">Mainframe Console</a></li>
+      <li><a href="#ticket-section" class="nav-item">Get Ticket</a></li>
     </ul>
 
     <div class="nav-right">
@@ -47,7 +52,7 @@
           <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
         </svg>
       </button>
-      <a href="#lab" class="btn btn-magenta" id="nav-cta-btn">SYNC CHASSIS</a>
+      <a href="#ticket-section" class="btn btn-magenta" id="nav-cta-btn">SYNC TICKET</a>
       <button class="menu-toggle" id="mobile-toggle" aria-label="Toggle menu">
         <span></span>
         <span></span>
@@ -57,27 +62,47 @@
   </nav>
 
   <!-- ==========================================
-       HERO SECTION
+       HERO SECTION (WEBGL CENTERPIECE + TERMINAL)
        ========================================== -->
   <section class="hero" id="hero">
     <div class="hero-content">
       <div class="hero-subtitle">
-        <span class="mono">SYSTEM BOOT: PHASE 04 STABLE</span>
+        <span class="mono">SYSTEM RECON: MAINFRAME ONLINE</span>
       </div>
-      <h1 class="hero-title">EVOLVE BEYOND THE BIOLOGICAL LIMIT</h1>
+      <h1 class="hero-title">EVOLVE THE BORDERS OF REALITY</h1>
       <p class="hero-desc">
-        Welcome to the next stage of human evolution. We design, manufacture, and integrate high-precision, medical-grade cybernetic enhancements to overclock your sensory reflexes, cognitive capacity, and physical chassis.
+        Welcome to Aetheris 2026—the ultimate nexus of quantum computing, cognitive automation, bio-engineering, and robotics. Join thousands of innovators globally to test limitations, hack firewall nodes, and build future frameworks.
       </p>
       
-      <div class="hero-actions">
-        <a href="#lab" class="btn" id="hero-btn-primary">INITIALIZE LAB</a>
-        <a href="#diagnostics" class="btn btn-magenta" id="hero-btn-secondary">VIEW CORE TELEMETRY</a>
+      <!-- Countdown Dashboard -->
+      <div class="countdown-grid">
+        <div class="countdown-card">
+          <span class="countdown-num mono cyan-glow" id="days">00</span>
+          <span class="countdown-label mono">DAYS</span>
+        </div>
+        <div class="countdown-card">
+          <span class="countdown-num mono cyan-glow" id="hours">00</span>
+          <span class="countdown-label mono">HRS</span>
+        </div>
+        <div class="countdown-card">
+          <span class="countdown-num mono cyan-glow" id="minutes">00</span>
+          <span class="countdown-label mono">MINS</span>
+        </div>
+        <div class="countdown-card">
+          <span class="countdown-num mono cyan-glow" id="seconds">00</span>
+          <span class="countdown-label mono">SECS</span>
+        </div>
       </div>
 
-      <!-- Hero Terminal Simulator -->
+      <div class="hero-actions">
+        <a href="#zones" class="btn" id="hero-btn-primary">EXPLORE ZONES</a>
+        <a href="#ticket-section" class="btn btn-magenta" id="hero-btn-secondary">SECURE TICKET</a>
+      </div>
+
+      <!-- Hero Terminal Emulator -->
       <div class="hero-terminal">
         <div class="terminal-header">
-          <span>SECURE PROTOCOL // NS_TERM_01</span>
+          <span>AETHERIS NETWORK // AE_TERM_01</span>
           <div class="terminal-dots">
             <span class="terminal-dot"></span>
             <span class="terminal-dot"></span>
@@ -85,153 +110,157 @@
           </div>
         </div>
         <div class="terminal-body" id="hero-term-body">
-          <div class="terminal-line info">> SECURE CONNECT: STABLE</div>
-          <div class="terminal-line">> NEURAL SYNAPSE LINKING ATTEMPT...</div>
-          <div class="terminal-line success">> IMPLANT PORTS: DETECTED [A1, B5, C7, F4]</div>
+          <div class="terminal-line info">> SECURE AETHERIS GRID LINK: OK</div>
+          <div class="terminal-line">> SCANNING SYSTEM INTEGRITY...</div>
+          <div class="terminal-line success">> WEBGL 3D MATRIX RENDERER: STABLE</div>
           <div class="terminal-line">> BOOT COMPLETED: COGNITIVE BANDWIDTH 100%</div>
         </div>
       </div>
     </div>
 
+    <!-- Right side will float a telemetry display template, Three.js coordinates canvas sits underneath -->
     <div class="hero-visual">
       <!-- Rotating Technical Telemetry Rings -->
       <div class="hud-telemetry">
         <div class="hud-ring hud-ring-1"></div>
         <div class="hud-ring hud-ring-2"></div>
         <div class="hud-crosshair">
-          <div class="hud-crosshair-label">ENGAGED // RETINAL SCAN</div>
+          <div class="hud-crosshair-label">LOCKED // AETHERIS CORE</div>
         </div>
         <div class="scan-bar"></div>
       </div>
       
-      <!-- Cyborg Centerpiece Image -->
-      <div class="cyborg-graphic">
-        <img class="cyborg-image" src="assets/cyborg-hero.jpg" alt="Cybernetic portrait featuring glowing purple retinal overlays and integrated high-tech facial implants">
+      <!-- Cyborg portrait overlay replaced with technical glass frame layout to showcase behind three.js core -->
+      <div class="hologram-visual-frame">
+        <div class="visual-corner tc"></div>
+        <div class="visual-corner tr"></div>
+        <div class="visual-corner bl"></div>
+        <div class="visual-corner br"></div>
+        <span class="mono watermark">AE_GRID_v4.5</span>
       </div>
     </div>
   </section>
 
   <!-- ==========================================
-       AUGMENTATION LAB (THE CUSTOMIZER)
-       ========================================== */
+       TECH ZONES (MORPHING WEBGL VIEWER)
        ========================================== -->
-  <section class="lab-section" id="lab">
+  <section class="lab-section" id="zones">
     <div class="section-header">
-      <span class="section-label">AUGMENTATION LAB v4.01</span>
-      <h2 class="section-title">CONFIG YOUR CYBERNETIC PROFILE</h2>
+      <span class="section-label">FESTIVAL DISTRICTS</span>
+      <h2 class="section-title">THE AETHERIS CORE ZONES</h2>
     </div>
 
     <div class="customizer-container">
       <div class="customizer-controls">
-        <!-- Interactive Tabs for Implant Areas -->
+        <!-- Interactive Tabs for Tech Zones -->
         <div class="augment-tabs">
-          <button class="tab-btn active" id="tab-neural">
-            <span>PORT 01</span>NEURAL CORE
+          <button class="tab-btn active" id="tab-nexus">
+            <span>ZONE 01</span>AI NEXUS
           </button>
-          <button class="tab-btn" id="tab-sensory">
-            <span>PORT 02</span>OPTICAL RETINA
+          <button class="tab-btn" id="tab-robotics">
+            <span>ZONE 02</span>ROBOTICS CORE
           </button>
-          <button class="tab-btn" id="tab-kinetic">
-            <span>PORT 03</span>KINETIC LIMBS
+          <button class="tab-btn" id="tab-quantum">
+            <span>ZONE 03</span>QUANTUM CRYPTO
           </button>
-          <button class="tab-btn" id="tab-dermal">
-            <span>PORT 04</span>NANO-ARMOR
+          <button class="tab-btn" id="tab-bio">
+            <span>ZONE 04</span>BIO-GENETICS
           </button>
         </div>
 
-        <!-- Custom Options Config Card -->
+        <!-- Zone Information Config Card -->
         <div class="config-card">
           <h3 class="config-title" id="config-card-title">
-            NEURAL OPTIMIZATION
+            AI & COGNITIVE NEXUS
             <span class="mono text-muted" id="port-status">ACTIVE</span>
           </h3>
           
           <div class="config-options" id="config-options-container">
-            <!-- Options dynamically loaded by JS based on selected tab -->
+            <!-- Event listings dynamically loaded by JS based on selected tab -->
           </div>
         </div>
       </div>
 
-      <!-- Customizer Output Diagnostics Showcase -->
+      <!-- Zone Showcase stats and details -->
       <div class="customizer-showcase">
         <div class="showcase-header">
           <div class="subject-details">
-            <span class="subject-id mono">SUBJECT // #NS-7798</span>
-            <span class="subject-class mono">CLASS // SHIFT-CHASSIS</span>
+            <span class="subject-id mono" id="zone-codename">CODENAME // AE-NEXUS</span>
+            <span class="subject-class mono" id="zone-status">TELEMETRY // SYNCED</span>
           </div>
-          <span class="status-badge">SYNAPSED</span>
+          <span class="status-badge" id="zone-badge">OVERCLOCK</span>
         </div>
 
         <!-- Performance Stats Dashboard -->
         <div class="stats-grid">
-          <!-- Reflexes Stat Box -->
+          <!-- Stat Box 1 -->
           <div class="stat-box">
-            <span class="stat-label">REFLEX SPEED</span>
+            <span class="stat-label" id="lbl-stat1">COGNITIVE INDEX</span>
             <div class="stat-value-container">
-              <span class="stat-value" id="val-reflex">100 ms</span>
-              <span class="stat-change" id="chg-reflex">+0%</span>
+              <span class="stat-value" id="val-stat1">150 IQ</span>
+              <span class="stat-change" id="chg-stat1">+25%</span>
             </div>
             <div class="stat-bar-bg">
-              <div class="stat-bar-fill" id="bar-reflex" style="width: 40%;"></div>
+              <div class="stat-bar-fill" id="bar-stat1" style="width: 75%;"></div>
             </div>
           </div>
 
-          <!-- Cognition Stat Box -->
+          <!-- Stat Box 2 -->
           <div class="stat-box">
-            <span class="stat-label">COGNITIVE INDEX</span>
+            <span class="stat-label" id="lbl-stat2">DATA BANDWIDTH</span>
             <div class="stat-value-container">
-              <span class="stat-value" id="val-cognitive">120 IQ</span>
-              <span class="stat-change" id="chg-cognitive">+0%</span>
+              <span class="stat-value" id="val-stat2">100 GB/s</span>
+              <span class="stat-change" id="chg-stat2">+50%</span>
             </div>
             <div class="stat-bar-bg">
-              <div class="stat-bar-fill" id="bar-cognitive" style="width: 45%;"></div>
+              <div class="stat-bar-fill" id="bar-stat2" style="width: 80%;"></div>
             </div>
           </div>
 
-          <!-- Sensory Stat Box -->
+          <!-- Stat Box 3 -->
           <div class="stat-box">
-            <span class="stat-label">SENSORY BANDWIDTH</span>
+            <span class="stat-label" id="lbl-stat3">ACTIVE REGISTERS</span>
             <div class="stat-value-container">
-              <span class="stat-value" id="val-sensory">60 GHz</span>
-              <span class="stat-change" id="chg-sensory">+0%</span>
+              <span class="stat-value" id="val-stat3">4,800 +</span>
+              <span class="stat-change" id="chg-stat3">+12%</span>
             </div>
             <div class="stat-bar-bg">
-              <div class="stat-bar-fill" id="bar-sensory" style="width: 30%;"></div>
+              <div class="stat-bar-fill" id="bar-stat3" style="width: 60%;"></div>
             </div>
           </div>
 
-          <!-- Armor Integrity Stat Box -->
+          <!-- Stat Box 4 -->
           <div class="stat-box">
-            <span class="stat-label">STRUCTURAL ARMOR</span>
+            <span class="stat-label" id="lbl-stat4">PRIZE POOL</span>
             <div class="stat-value-container">
-              <span class="stat-value" id="val-armor">15 points</span>
-              <span class="stat-change" id="chg-armor">+0%</span>
+              <span class="stat-value" id="val-stat4">45,000 CR</span>
+              <span class="stat-change" id="chg-stat4">+0%</span>
             </div>
             <div class="stat-bar-bg">
-              <div class="stat-bar-fill" id="bar-armor" style="width: 25%;"></div>
+              <div class="stat-bar-fill" id="bar-stat4" style="width: 45%;"></div>
             </div>
           </div>
         </div>
 
-        <!-- Simulated Shopping/Synchronizing Cost Box -->
+        <!-- simulated Registration Action Box -->
         <div class="loadout-cost-box">
           <div class="cost-details">
-            <span class="cost-label">EST. UPGRADE CREDITS</span>
-            <span class="cost-amount" id="loadout-total-cost">5,000 CR</span>
+            <span class="cost-label">MAX SEAT REGISTER LIMIT</span>
+            <span class="cost-amount" id="loadout-total-cost">LIMITED</span>
           </div>
-          <button class="btn btn-magenta" id="loadout-sync-btn">INITIATE IMPLANT</button>
+          <a href="#ticket-section" class="btn btn-magenta" id="loadout-sync-btn">SYNC CHASSIS ACCESS</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ==========================================
-       BLUEPRINTS INTERACTIVE SCHEMATIC (SCROLLYTELLING)
+       EVENT TIMELINE (SCROLLYTELLING INTERACTIVE)
        ========================================== -->
-  <section class="blueprint-section" id="blueprints">
+  <section class="blueprint-section" id="timeline">
     <div class="section-header">
       <span class="section-label">SYSTEM SCHEMATICS</span>
-      <h2 class="section-title">INTEGRATION PROCEDURES</h2>
+      <h2 class="section-title">THE 4-DAY CHRONOLOGY</h2>
     </div>
 
     <div class="blueprint-layout">
@@ -254,18 +283,18 @@
           <path d="M 20 100 A 80 80 0 0 1 180 100" stroke="rgba(0, 240, 255, 0.08)" stroke-width="2" fill="none" stroke-dasharray="10 5" />
           <path d="M 20 100 A 80 80 0 0 0 180 100" stroke="rgba(255, 0, 85, 0.08)" stroke-width="1" fill="none" stroke-dasharray="2 6" />
 
-          <!-- Cyborg body paths (Brain, Eye, Arm, Skeleton) -->
-          <!-- 1. Head / Neural Core (Path 1) -->
+          <!-- Blueprint paths represent the tech timeline node systems -->
+          <!-- 1. Day 1: Quantum Inception (Brain nodes) -->
           <path class="blueprint-part" id="part-neural" d="M 90 40 C 90 35, 100 25, 110 40 C 115 45, 110 55, 100 55 C 90 55, 85 45, 90 40 Z M 100 25 L 100 20 M 110 32 L 118 28 M 90 32 L 82 28" />
           
-          <!-- 2. Optical Eye Sensor (Path 2) -->
+          <!-- 2. Day 2: AI & Mechatronics (Eyes sensors) -->
           <circle class="blueprint-part" id="part-optics" cx="105" cy="38" r="4" />
           <line class="blueprint-part" id="part-optics-line" x1="109" y1="38" x2="125" y2="38" stroke="rgba(0, 240, 255, 0.2)" stroke-width="1" />
           
-          <!-- 3. Bionic Arm / Chassis Spine (Path 3) -->
+          <!-- 3. Day 3: Cyber Cryptic (Arm / Spine structure) -->
           <path class="blueprint-part" id="part-kinetic" d="M 100 55 L 100 120 M 100 65 L 125 75 L 130 115 L 120 135 M 100 75 L 75 85 L 70 120 M 100 85 L 115 95 M 100 100 L 85 105" />
           
-          <!-- 4. Nanosteel Armor Outline (Path 4) -->
+          <!-- 4. Day 4: Singularity Awards (Armor shield) -->
           <path class="blueprint-part" id="part-armor" d="M 85 55 C 80 70, 75 85, 75 125 L 90 145 L 100 160 L 110 145 L 125 125 C 125 85, 120 70, 115 55 Z" />
         </svg>
       </div>
@@ -274,37 +303,37 @@
       <div class="blueprint-scroll-content">
         <!-- Step 1 -->
         <div class="scroll-step active" id="step-01">
-          <span class="step-num mono">PHASE 01 // CRITICAL</span>
-          <h3 class="step-title">NEURAL CONNECTIVITY MAPPING</h3>
+          <span class="step-num mono">DAY 01 // NOVEMBER 12</span>
+          <h3 class="step-title">QUANTUM INCEPTION</h3>
           <p class="step-desc">
-            We begin with sub-millimeter MRI diagnostics to trace synaptic pathways. Micro-electrodes are aligned with cognitive cores to map neurological triggers, laying the foundation for zero-latency neural interface synchronization.
+            We ignite Aetheris with secure protocol activations. High-speed networking registers link global developers. Keynote panel starts at the main dome, discussing limits of quantum encryption and micro-synapse computing architectures. Hackathons officially launch node portals.
           </p>
         </div>
 
         <!-- Step 2 -->
         <div class="scroll-step" id="step-02">
-          <span class="step-num mono">PHASE 02 // SENSORY</span>
-          <h3 class="step-title">RETINAL HUD INTEGRATION</h3>
+          <span class="step-num mono">DAY 02 // NOVEMBER 13</span>
+          <h3 class="step-title">AI & MECHATRONICS GRAND PRIX</h3>
           <p class="step-desc">
-            Replacement of natural lens cells with cybernetic crystalline ocular arrays. Features micro-spectrometers, multi-spectrum filters, and digital telemetrics. Displays environmental coordinates overlay directly to visual sensory cortex.
+            The robotics arena explodes. Autonomous micro-drones map and navigate obstacle courses. Custom combat humanoid rigs clash in the mechatronics cage. Simultaneously, our Cognitive AI modules challenge developers in a real-time semantic code optimization sprint.
           </p>
         </div>
 
         <!-- Step 3 -->
         <div class="scroll-step" id="step-03">
-          <span class="step-num mono">PHASE 03 // MOTOR</span>
-          <h3 class="step-title">CARBON-FIBER MOTOR CHASSIS</h3>
+          <span class="step-num mono">DAY 03 // NOVEMBER 14</span>
+          <h3 class="step-title">CYBER-CRYPTIC SHOWDOWN</h3>
           <p class="step-desc">
-            Replacement of structural skeletal bone paths with lightweight carbon-composite frames and high-torque pneumatic servos. Amplifies physical lifts, jump-boost reflexes, and optimizes speed outputs to near superhuman speeds.
+            Cyber-security specialists face off in a Capture-The-Flag network sandbox simulation. Developers try to exploit quantum mainframe vulnerabilities while firewalls dynamically reconfigure under simulated autonomous bot attacks. Guest lecture: Singularity Pathways in Decentralized Nets.
           </p>
         </div>
 
         <!-- Step 4 -->
         <div class="scroll-step" id="step-04">
-          <span class="step-num mono">PHASE 04 // DEFENSIVE</span>
-          <h3 class="step-title">NANODERMAL ARMOR SHIELD</h3>
+          <span class="step-num mono">DAY 04 // NOVEMBER 15</span>
+          <h3 class="step-title">SINGULARITY AWARDS</h3>
           <p class="step-desc">
-            Infusion of graphene-engineered nanosteel shields inside the epidermal layers. Designed for thermal resistance and shock absorption. The armor system triggers instantaneous harden signals upon kinetic impact.
+            The final synchronization. Hackathon judges compile filesets to rate prototypes. The top cybernetic innovations receive structural project credits. Closing ceremonies feature immersive WebGL laser synthesis shows and core neural music performance.
           </p>
         </div>
       </div>
@@ -312,84 +341,20 @@
   </section>
 
   <!-- ==========================================
-       FEATURES SECTION (IMPLANT GRID)
+       DIAGNOSTICS MONITOR (MAINFRAME TELEMETRY)
        ========================================== -->
-  <section class="features-section" id="features">
-    <div class="section-header">
-      <span class="section-label">IMPLANT SPECIFICATIONS</span>
-      <h2 class="section-title">THE CORE AUGMENT ARCHITECTURE</h2>
-    </div>
-
-    <div class="features-grid">
-      <!-- Feature Card 1 -->
-      <div class="feature-card">
-        <svg class="feature-icon" viewBox="0 0 24 24">
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
-        </svg>
-        <h3 class="feature-title">SYNAPSE OVERCLOCK</h3>
-        <p class="feature-desc">Overclocks standard synaptic bandwidths to process external tactile stimuli at 1.4 milliseconds. Zero jitter lag.</p>
-        <div class="feature-meta">
-          <span>PORT: A1</span>
-          <span class="green-glow">STABLE</span>
-        </div>
-      </div>
-
-      <!-- Feature Card 2 -->
-      <div class="feature-card overdrive">
-        <svg class="feature-icon" viewBox="0 0 24 24">
-          <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/>
-        </svg>
-        <h3 class="feature-title">OVERDRIVE SHIELD</h3>
-        <p class="feature-desc">Triggers defensive energy shields, absorbing up to 500 kilo-joules of kinetic impact forces upon critical breach.</p>
-        <div class="feature-meta">
-          <span>PORT: F4</span>
-          <span class="magenta-glow">OVERCLOCK</span>
-        </div>
-      </div>
-
-      <!-- Feature Card 3 -->
-      <div class="feature-card">
-        <svg class="feature-icon" viewBox="0 0 24 24">
-          <path d="M12 3v9.28c-.47-.17-.97-.28-1.5-.28C8.01 12 6 14.01 6 16.5S8.01 21 10.5 21 15 18.99 15 16.5V6h4V3h-7z"/>
-        </svg>
-        <h3 class="feature-title">BIO-BATTERY CORES</h3>
-        <p class="feature-desc">Integrated micro-nuclear batteries that draw energy from thermal bloodstream paths. Lifetime guarantee.</p>
-        <div class="feature-meta">
-          <span>PORT: C7</span>
-          <span class="green-glow">STABLE</span>
-        </div>
-      </div>
-
-      <!-- Feature Card 4 -->
-      <div class="feature-card">
-        <svg class="feature-icon" viewBox="0 0 24 24">
-          <path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 9H3V5h9v7zm9 7h-9v-7h9v7z"/>
-        </svg>
-        <h3 class="feature-title">TACTICAL SCANNER</h3>
-        <p class="feature-desc">Thermal and structural detection scanner maps environmental features up to 300 meters away, even behind concrete.</p>
-        <div class="feature-meta">
-          <span>PORT: B5</span>
-          <span class="green-glow">STABLE</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================
-       DIAGNOSTICS MONITOR (TELEMETRY SIMULATOR)
-       ========================================== -->
-  <section class="diagnostics-section" id="diagnostics">
+  <section class="diagnostics-section" id="telemetry">
     <div class="section-header">
       <span class="section-label">LIVE MATRIX DATA</span>
-      <h2 class="section-title">CHASSIS DIAGNOSTICS</h2>
+      <h2 class="section-title">MAINFRAME TELEMETRY</h2>
     </div>
 
     <div class="diagnostics-panel">
       <!-- Live wave monitor canvas on left -->
       <div class="monitor-view">
         <div class="monitor-header">
-          <span class="mono cyan-glow">WAVEFORM FEED // CH_04</span>
-          <span class="mono text-muted" id="current-timestamp">14:52:51</span>
+          <span class="mono cyan-glow">QUANTUM DATA FEEDS // AE_CH_1026</span>
+          <span class="mono text-muted" id="current-timestamp">16:30:00</span>
         </div>
 
         <div class="monitor-waveform">
@@ -399,15 +364,15 @@
         <!-- Telemetry indicators grid -->
         <div class="monitor-stats">
           <div class="diag-stat-card">
-            <div class="diag-stat-label">SYNAPSE TEMP</div>
+            <div class="diag-stat-label">MAINFRAME TEMP</div>
             <div class="diag-stat-val text-primary" id="diag-temp">37.2°C</div>
           </div>
           <div class="diag-stat-card">
-            <div class="diag-stat-label">FREQ RESISTANCE</div>
-            <div class="diag-stat-val text-primary" id="diag-freq">98.5%</div>
+            <div class="diag-stat-label">FIREWALL INTEGRITY</div>
+            <div class="diag-stat-val text-primary" id="diag-freq">99.8%</div>
           </div>
           <div class="diag-stat-card">
-            <div class="diag-stat-label">POWER DRAW</div>
+            <div class="diag-stat-label">GRID LOAD</div>
             <div class="diag-stat-val text-primary" id="diag-draw">4.2 W</div>
           </div>
         </div>
@@ -416,7 +381,7 @@
       <!-- Real time logging panel on right -->
       <div class="console-view">
         <div class="console-header">
-          <span class="mono">SYSTEM RECOGNITION CONSOLE</span>
+          <span class="mono">MAINFRAME RECOGNITION CONSOLE</span>
           <span class="mono green-glow">RECEIVING...</span>
         </div>
 
@@ -428,76 +393,127 @@
   </section>
 
   <!-- ==========================================
-       INTERACTIVE COST CONFIGURATOR (SLIDERS)
+       HOLOGRAPHIC TICKET PASS GENERATOR
        ========================================== -->
-  <section class="configurator-section" id="configurator">
+  <section class="configurator-section" id="ticket-section">
     <div class="section-header">
-      <span class="section-label">COST CALCULATOR</span>
-      <h2 class="section-title">SPECIFICATION CONFIGURATOR</h2>
+      <span class="section-label">ACCESS VERIFICATION</span>
+      <h2 class="section-title">HOLOGRAM TICKET COMPILER</h2>
     </div>
 
     <div class="configurator-container">
       <!-- Controls on left -->
-      <div class="slider-container">
-        <!-- Slider 1 -->
-        <div class="slider-group">
-          <div class="slider-label-row">
-            <span class="slider-name">REFLEX AMPLIFICATION</span>
-            <span class="slider-value" id="val-slide-reflex">50%</span>
+      <div class="ticket-form-panel">
+        <h3 class="config-title mono cyan-glow">TICKET PARAMETERS</h3>
+        <form id="ticket-form" onsubmit="return false;">
+          <!-- Form Group 1 -->
+          <div class="form-group">
+            <label class="form-label mono" for="ticket-user-name">SUBJECT CODENAME</label>
+            <input class="form-input" type="text" id="ticket-user-name" maxlength="15" placeholder="ENTER CODENAME" required>
           </div>
-          <input type="range" id="slide-reflex" min="10" max="100" value="50" step="5">
-        </div>
 
-        <!-- Slider 2 -->
-        <div class="slider-group">
-          <div class="slider-label-row">
-            <span class="slider-name">CORE SYNAPSE FREQUENCY</span>
-            <span class="slider-value" id="val-slide-freq">2.4 GHz</span>
+          <!-- Form Group 2 -->
+          <div class="form-group">
+            <label class="form-label mono" for="ticket-domain">TECH MATRIX DOMAIN</label>
+            <select class="form-input" id="ticket-domain">
+              <option value="AI NEXUS" selected>AI & COGNITIVE NEXUS</option>
+              <option value="ROBOTICS CORE">ROBOTICS & MECHATRONICS</option>
+              <option value="QUANTUM CRYPTO">QUANTUM CRYPTOGRAPHY</option>
+              <option value="BIO-GENETICS">SYNTHETIC BIO-GENETICS</option>
+            </select>
           </div>
-          <input type="range" id="slide-freq" min="10" max="80" value="24" step="2">
-        </div>
 
-        <!-- Slider 3 -->
-        <div class="slider-group">
-          <div class="slider-label-row">
-            <span class="slider-name">STRUCTURAL INTEGRITY (GRAPHENE)</span>
-            <span class="slider-value" id="val-slide-integrity">40%</span>
+          <!-- Form Group 3 -->
+          <div class="form-group">
+            <label class="form-label mono" for="ticket-tier">ACCESS AUTHORIZATION</label>
+            <select class="form-input" id="ticket-tier">
+              <option value="GENERAL" selected>GENERAL ACCESS (PORTAL)</option>
+              <option value="VIP CORE">VIP INTRUDER (CORE ACCESS)</option>
+              <option value="HACKER ELITE">HACKER ELITE (ROOT SYSTEM)</option>
+            </select>
           </div>
-          <input type="range" id="slide-integrity" min="10" max="100" value="40" step="5">
-        </div>
+
+          <button class="btn btn-magenta" type="button" id="btn-compile-ticket">COMPILE PASS CODE</button>
+        </form>
       </div>
 
-      <!-- Output Summary on right -->
-      <div class="summary-panel">
-        <h3 class="summary-title mono cyan-glow">UPGRADE SUMMARY</h3>
-        
-        <div class="summary-list">
-          <div class="summary-row">
-            <span class="label">ESTIMATED MAINTENANCE INTERVAL</span>
-            <span class="val" id="sum-maintenance">480 Hrs</span>
-          </div>
-          <div class="summary-row">
-            <span class="label">POWER CONSUMPTION RATE</span>
-            <span class="val" id="sum-power">6.2 W/h</span>
-          </div>
-          <div class="summary-row">
-            <span class="label">COGNITIVE LATENCY INDEX</span>
-            <span class="val" id="sum-latency">1.8 ms</span>
+      <!-- Holographic Interactive 3D Card Output on Right -->
+      <div class="ticket-display-container">
+        <!-- 3D Perspective Card -->
+        <div class="ticket-card" id="interactive-ticket">
+          <!-- Glossy glare overlay -->
+          <div class="ticket-glare" id="ticket-glare"></div>
+          
+          <div class="ticket-inner">
+            <div class="ticket-header-card">
+              <div class="logo">
+                <svg viewBox="0 0 24 24" stroke="currentColor">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                </svg>
+                <span class="mono">AETHERIS '26</span>
+              </div>
+              <span class="ticket-badge mono" id="badge-ticket-tier">GENERAL</span>
+            </div>
+
+            <div class="ticket-middle">
+              <div class="ticket-field">
+                <span class="lbl mono">HOLDER SYNC ID</span>
+                <span class="val mono" id="tick-name-display">GUEST_SEC_99</span>
+              </div>
+              <div class="ticket-field">
+                <span class="lbl mono">ASSIGNED GATE</span>
+                <span class="val mono cyan-glow" id="tick-domain-display">AI NEXUS</span>
+              </div>
+            </div>
+
+            <div class="ticket-bottom">
+              <!-- Digital Barcode schematic styling -->
+              <div class="ticket-barcode">
+                <div class="bar-line" style="width: 3px;"></div>
+                <div class="bar-line" style="width: 1px;"></div>
+                <div class="bar-line" style="width: 4px;"></div>
+                <div class="bar-line" style="width: 2px;"></div>
+                <div class="bar-line" style="width: 1px;"></div>
+                <div class="bar-line" style="width: 3px;"></div>
+                <div class="bar-line" style="width: 5px;"></div>
+                <div class="bar-line" style="width: 2px;"></div>
+                <div class="bar-line" style="width: 1px;"></div>
+                <div class="bar-line" style="width: 4px;"></div>
+                <div class="bar-line" style="width: 2px;"></div>
+                <div class="bar-line" style="width: 3px;"></div>
+              </div>
+              <div class="ticket-qr-container">
+                <!-- Custom procedural SVG QR code box -->
+                <svg viewBox="0 0 100 100" class="ticket-qr">
+                  <rect x="10" y="10" width="80" height="80" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <!-- Corners QR standard boxes -->
+                  <rect x="20" y="20" width="20" height="20" fill="currentColor"/>
+                  <rect x="25" y="25" width="10" height="10" fill="var(--bg-tech)"/>
+                  <rect x="60" y="20" width="20" height="20" fill="currentColor"/>
+                  <rect x="65" y="25" width="10" height="10" fill="var(--bg-tech)"/>
+                  <rect x="20" y="60" width="20" height="20" fill="currentColor"/>
+                  <rect x="25" y="65" width="10" height="10" fill="var(--bg-tech)"/>
+                  <!-- Cyber dots inside -->
+                  <rect x="45" y="20" width="5" height="10" fill="currentColor"/>
+                  <rect x="45" y="45" width="10" height="10" fill="currentColor"/>
+                  <rect x="60" y="45" width="5" height="15" fill="currentColor"/>
+                  <rect x="45" y="60" width="10" height="5" fill="currentColor"/>
+                  <rect x="65" y="65" width="15" height="15" fill="currentColor"/>
+                </svg>
+              </div>
+            </div>
+            
+            <div class="ticket-footer-text">
+              <span class="mono text-muted">TRANSHUMANIST PROTOCOLS ENGAGED // ALL TICKET TRANSACTIONS IMMUTABLE</span>
+            </div>
           </div>
         </div>
-
-        <div class="summary-total">
-          <span class="total-label mono">TOTAL CREDITS REQUIRED:</span>
-          <span class="total-value" id="sum-total-credits">14,200 CR</span>
-        </div>
-
-        <button class="btn btn-magenta" id="slider-sync-cta">TRANSMIT CONFIG LOADOUT</button>
       </div>
     </div>
   </section>
 
   <!-- ==========================================
-       FAQ SECTION (SYNAPTIC OVERRIDES)
+       FAQ SECTION (PROTOCOLS OVERRIDES)
        ========================================== -->
   <section class="faq-section" id="faq">
     <div class="section-header">
@@ -509,12 +525,12 @@
       <!-- FAQ 1 -->
       <div class="faq-item">
         <button class="faq-question">
-          <span>Are Neurasynapse implants reversible?</span>
+          <span>Who is eligible to participate in Aetheris events?</span>
           <svg class="faq-chevron" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
         </button>
         <div class="faq-answer">
           <div class="faq-answer-inner">
-            Most kinetic and sensory hardware can be easily extracted or replaced in outpatient lab operations. However, Level-3 Neural Core overlays modify cerebral neural channels permanently to guarantee optimal overclocking speed.
+            Aetheris welcomes developers, AI programmers, cyber-security researchers, hardware hackers, and tech enthusiasts worldwide. Both student tracks and professional divisions are supported across our main competition matrices.
           </div>
         </div>
       </div>
@@ -522,12 +538,12 @@
       <!-- FAQ 2 -->
       <div class="faq-item">
         <button class="faq-question">
-          <span>What is the risk of rogue AI or virus infection?</span>
+          <span>Is registration for multiple Tech Zones allowed?</span>
           <svg class="faq-chevron" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
         </button>
         <div class="faq-answer">
           <div class="faq-answer-inner">
-            Every neural core is isolated behind a double-layered hardware firewall. A sandbox environment isolates all external deck ports. Software overrides require a physical security key directly connected to the user's primary interface port.
+            Yes, our schedule layout is specifically compiled to avoid synchronization issues. Hackathons occur asynchronously, allowing teams to compete in secondary speed-run events in other domains without missing primary evaluations.
           </div>
         </div>
       </div>
@@ -535,12 +551,12 @@
       <!-- FAQ 3 -->
       <div class="faq-item">
         <button class="faq-question">
-          <span>How are cybernetic chassis powered?</span>
+          <span>How do I secure my Holographic Ticket Pass?</span>
           <svg class="faq-chevron" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
         </button>
         <div class="faq-answer">
           <div class="faq-answer-inner">
-            Our bionic components draw power from bio-battery cells. These cells absorb electrical charges from blood thermals and cellular kinetic motion. For heavy kinetic loads, you can upgrade to local sub-dermal battery nodes.
+            Input your secure codename and select your Tech Matrix Gate. Once compiled, click "COMPILE PASS CODE" to finalize validation. Your credential signature is synced to the mainframe network, granting secure admittance credentials to Aetheris domes.
           </div>
         </div>
       </div>
@@ -548,7 +564,7 @@
   </section>
 
   <!-- ==========================================
-       FOOTER & NEWSLETTER
+       FOOTER & MAINFRAME DISPATCHES
        ========================================== -->
   <footer class="footer">
     <div class="footer-grid">
@@ -557,36 +573,36 @@
           <svg viewBox="0 0 24 24" stroke="currentColor">
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
           </svg>
-          <span class="mono cyan-glow">NEURASYNAPSE</span>
+          <span class="mono cyan-glow">AETHERIS CORESYNC</span>
         </div>
         <p class="footer-desc">
-          Advancing transhumanism via high-precision mechanical interfaces and medical neural engineering. Evolve beyond biology.
+          Connecting and building transhumanist realities. Evolve beyond physical boundaries via quantum calculations and mechanical robotics.
         </p>
       </div>
 
       <div class="footer-nav">
         <span class="footer-heading">NAVIGATION</span>
         <ul class="footer-links">
-          <li><a href="#hero">System Boot</a></li>
-          <li><a href="#lab">Augmentation Lab</a></li>
-          <li><a href="#blueprints">Schematics</a></li>
-          <li><a href="#diagnostics">Chassis Telemetry</a></li>
+          <li><a href="#hero">Core Mainframe</a></li>
+          <li><a href="#zones">Tech Districts</a></li>
+          <li><a href="#timeline">Chronology</a></li>
+          <li><a href="#telemetry">Console Feeds</a></li>
         </ul>
       </div>
 
       <div class="footer-nav">
-        <span class="footer-heading">LEGAL DECK</span>
+        <span class="footer-heading">LEGAL SCHEMATICS</span>
         <ul class="footer-links">
-          <li><a href="#faq">Synaptic Overrides</a></li>
-          <li><a href="#faq">Implant Warranty</a></li>
-          <li><a href="#faq">Privacy Sandbox</a></li>
-          <li><a href="#faq">Terminal Security</a></li>
+          <li><a href="#faq">Node Overrides</a></li>
+          <li><a href="#faq">Access Warranty</a></li>
+          <li><a href="#faq">Network Sandboxing</a></li>
+          <li><a href="#faq">Mainframe Firewall</a></li>
         </ul>
       </div>
 
       <div class="footer-newsletter">
-        <span class="footer-heading">SYNC DISPATCHES</span>
-        <p class="footer-desc" style="margin-bottom: 8px;">Subscribe to receive synaptic news updates and security patch notifications.</p>
+        <span class="footer-heading">SECURE DISPATCHES</span>
+        <p class="footer-desc" style="margin-bottom: 8px;">Synchronize email address to receive network security patch alerts and scheduling revisions.</p>
         <form class="newsletter-form" id="newsletter-form">
           <input class="newsletter-input" type="email" placeholder="SUBJECT@DOMAIN.EXT" required aria-label="Enter your email">
           <button class="btn btn-magenta" type="submit">SUBSCRIBE</button>
@@ -595,9 +611,9 @@
     </div>
 
     <div class="footer-bottom">
-      <span class="footer-copy mono">&copy; 2026 NEURASYNAPSE SYSTEMS INC. ALL SECURE IMPLANTS REGISTERED.</span>
+      <span class="footer-copy mono">&copy; 2026 AETHERIS TECHNOLOGIES INC. ALL CORE SYSTEM GATES DETECTED.</span>
       <span class="footer-legal-note">
-        WARNING: Augmentation surgery involves risk of neural feed disruptions, memory leaks, and phantom sensory triggers. Ensure your deck firewalls are configured to standard safety ports. Neurasynapse does not assume responsibility for cyber-psychic events.
+        WARNING: High-density exposure to mechatronics combat arenas, quantum data frequencies, and neural synthesis overlays may cause post-event cognitive overclocking. Ensure your client deck firewalls are locked before registering.
       </span>
     </div>
   </footer>
