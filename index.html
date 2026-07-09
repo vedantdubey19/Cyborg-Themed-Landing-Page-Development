@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NEURASYNAPSE: Premium Cyborg and Cybernetic Augmentation Laboratory. Evolve beyond human limits with medical-grade neural overlays, sensory oculars, and bionic chassis systems.">
+  <title>NEURASYNAPSE // Cybernetic Enhancements & Augmentation Lab</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <!-- Fixed Heads-Up Display Border Frame -->
+  <div class="hud-border"></div>
+
+  <!-- Audio elements for high-tech HUD interaction (Synth tone, beep, hum) -->
+  <audio id="snd-hover" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" preload="auto"></audio>
+  <audio id="snd-click" src="https://assets.mixkit.co/active_storage/sfx/911/911-84.wav" preload="auto"></audio>
+  <audio id="snd-boot" src="https://assets.mixkit.co/active_storage/sfx/2019/2019-84.wav" preload="auto"></audio>
+
+  <!-- ==========================================
+       NAVIGATION BAR
+       ========================================== -->
+  <nav class="navbar" id="main-nav">
+    <div class="logo">
+      <svg viewBox="0 0 24 24" stroke="currentColor">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+      </svg>
+      <span class="mono cyan-glow">NEURASYNAPSE</span>
+    </div>
+    
+    <ul class="nav-links" id="nav-menu">
+      <li><a href="#hero" class="nav-item">System</a></li>
+      <li><a href="#lab" class="nav-item">Augment Lab</a></li>
+      <li><a href="#blueprints" class="nav-item">Blueprints</a></li>
+      <li><a href="#features" class="nav-item">Enhancements</a></li>
+      <li><a href="#diagnostics" class="nav-item">Telemetry</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <button class="sound-toggle" id="audio-control" aria-label="Toggle Interface Audio">
+        <!-- Sound active SVG -->
+        <svg id="sound-icon-on" viewBox="0 0 24 24">
+          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+        <!-- Sound muted SVG -->
+        <svg id="sound-icon-off" viewBox="0 0 24 24" style="display: none;">
+          <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+        </svg>
+      </button>
+      <a href="#lab" class="btn btn-magenta" id="nav-cta-btn">SYNC CHASSIS</a>
+      <button class="menu-toggle" id="mobile-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==========================================
+       HERO SECTION
+       ========================================== -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="hero-subtitle">
+        <span class="mono">SYSTEM BOOT: PHASE 04 STABLE</span>
+      </div>
+      <h1 class="hero-title">EVOLVE BEYOND THE BIOLOGICAL LIMIT</h1>
+      <p class="hero-desc">
+        Welcome to the next stage of human evolution. We design, manufacture, and integrate high-precision, medical-grade cybernetic enhancements to overclock your sensory reflexes, cognitive capacity, and physical chassis.
+      </p>
+      
+      <div class="hero-actions">
+        <a href="#lab" class="btn" id="hero-btn-primary">INITIALIZE LAB</a>
+        <a href="#diagnostics" class="btn btn-magenta" id="hero-btn-secondary">VIEW CORE TELEMETRY</a>
+      </div>
+
+      <!-- Hero Terminal Simulator -->
+      <div class="hero-terminal">
+        <div class="terminal-header">
+          <span>SECURE PROTOCOL // NS_TERM_01</span>
+          <div class="terminal-dots">
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot"></span>
+            <span class="terminal-dot active"></span>
+          </div>
+        </div>
+        <div class="terminal-body" id="hero-term-body">
+          <div class="terminal-line info">> SECURE CONNECT: STABLE</div>
+          <div class="terminal-line">> NEURAL SYNAPSE LINKING ATTEMPT...</div>
+          <div class="terminal-line success">> IMPLANT PORTS: DETECTED [A1, B5, C7, F4]</div>
+          <div class="terminal-line">> BOOT COMPLETED: COGNITIVE BANDWIDTH 100%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <!-- Rotating Technical Telemetry Rings -->
+      <div class="hud-telemetry">
+        <div class="hud-ring hud-ring-1"></div>
+        <div class="hud-ring hud-ring-2"></div>
+        <div class="hud-crosshair">
+          <div class="hud-crosshair-label">ENGAGED // RETINAL SCAN</div>
+        </div>
+        <div class="scan-bar"></div>
+      </div>
+      
+      <!-- Cyborg Centerpiece Image -->
+      <div class="cyborg-graphic">
+        <img class="cyborg-image" src="assets/cyborg-hero.jpg" alt="Cybernetic portrait featuring glowing purple retinal overlays and integrated high-tech facial implants">
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       AUGMENTATION LAB (THE CUSTOMIZER)
+       ========================================== */
+       ========================================== -->
+  <section class="lab-section" id="lab">
+    <div class="section-header">
+      <span class="section-label">AUGMENTATION LAB v4.01</span>
+      <h2 class="section-title">CONFIG YOUR CYBERNETIC PROFILE</h2>
+    </div>
+
+    <div class="customizer-container">
+      <div class="customizer-controls">
+        <!-- Interactive Tabs for Implant Areas -->
+        <div class="augment-tabs">
+          <button class="tab-btn active" id="tab-neural">
+            <span>PORT 01</span>NEURAL CORE
+          </button>
+          <button class="tab-btn" id="tab-sensory">
+            <span>PORT 02</span>OPTICAL RETINA
+          </button>
+          <button class="tab-btn" id="tab-kinetic">
+            <span>PORT 03</span>KINETIC LIMBS
+          </button>
+          <button class="tab-btn" id="tab-dermal">
+            <span>PORT 04</span>NANO-ARMOR
+          </button>
+        </div>
+
+        <!-- Custom Options Config Card -->
+        <div class="config-card">
+          <h3 class="config-title" id="config-card-title">
+            NEURAL OPTIMIZATION
+            <span class="mono text-muted" id="port-status">ACTIVE</span>
+          </h3>
+          
+          <div class="config-options" id="config-options-container">
+            <!-- Options dynamically loaded by JS based on selected tab -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Customizer Output Diagnostics Showcase -->
+      <div class="customizer-showcase">
+        <div class="showcase-header">
+          <div class="subject-details">
+            <span class="subject-id mono">SUBJECT // #NS-7798</span>
+            <span class="subject-class mono">CLASS // SHIFT-CHASSIS</span>
+          </div>
+          <span class="status-badge">SYNAPSED</span>
+        </div>
+
+        <!-- Performance Stats Dashboard -->
+        <div class="stats-grid">
+          <!-- Reflexes Stat Box -->
+          <div class="stat-box">
+            <span class="stat-label">REFLEX SPEED</span>
+            <div class="stat-value-container">
+              <span class="stat-value" id="val-reflex">100 ms</span>
+              <span class="stat-change" id="chg-reflex">+0%</span>
+            </div>
+            <div class="stat-bar-bg">
+              <div class="stat-bar-fill" id="bar-reflex" style="width: 40%;"></div>
+            </div>
+          </div>
+
+          <!-- Cognition Stat Box -->
+          <div class="stat-box">
+            <span class="stat-label">COGNITIVE INDEX</span>
+            <div class="stat-value-container">
+              <span class="stat-value" id="val-cognitive">120 IQ</span>
+              <span class="stat-change" id="chg-cognitive">+0%</span>
+            </div>
+            <div class="stat-bar-bg">
+              <div class="stat-bar-fill" id="bar-cognitive" style="width: 45%;"></div>
+            </div>
+          </div>
+
+          <!-- Sensory Stat Box -->
+          <div class="stat-box">
+            <span class="stat-label">SENSORY BANDWIDTH</span>
+            <div class="stat-value-container">
+              <span class="stat-value" id="val-sensory">60 GHz</span>
+              <span class="stat-change" id="chg-sensory">+0%</span>
+            </div>
+            <div class="stat-bar-bg">
+              <div class="stat-bar-fill" id="bar-sensory" style="width: 30%;"></div>
+            </div>
+          </div>
+
+          <!-- Armor Integrity Stat Box -->
+          <div class="stat-box">
+            <span class="stat-label">STRUCTURAL ARMOR</span>
+            <div class="stat-value-container">
+              <span class="stat-value" id="val-armor">15 points</span>
+              <span class="stat-change" id="chg-armor">+0%</span>
+            </div>
+            <div class="stat-bar-bg">
+              <div class="stat-bar-fill" id="bar-armor" style="width: 25%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulated Shopping/Synchronizing Cost Box -->
+        <div class="loadout-cost-box">
+          <div class="cost-details">
+            <span class="cost-label">EST. UPGRADE CREDITS</span>
+            <span class="cost-amount" id="loadout-total-cost">5,000 CR</span>
+          </div>
+          <button class="btn btn-magenta" id="loadout-sync-btn">INITIATE IMPLANT</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       BLUEPRINTS INTERACTIVE SCHEMATIC (SCROLLYTELLING)
+       ========================================== -->
+  <section class="blueprint-section" id="blueprints">
+    <div class="section-header">
+      <span class="section-label">SYSTEM SCHEMATICS</span>
+      <h2 class="section-title">INTEGRATION PROCEDURES</h2>
+    </div>
+
+    <div class="blueprint-layout">
+      <!-- Sticky Schematic Visual on Left -->
+      <div class="blueprint-sticky-container">
+        <!-- SVG Cybernetic Chassis blueprint drawing -->
+        <svg class="blueprint-svg" viewBox="0 0 200 200" id="blueprint-svg-diagram">
+          <!-- Cyber-body central grid background inside SVG -->
+          <defs>
+            <radialGradient id="glow-grad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.15" />
+              <stop offset="100%" stop-color="#050608" stop-opacity="0" />
+            </radialGradient>
+          </defs>
+          <circle cx="100" cy="100" r="85" fill="url(#glow-grad)" />
+          <circle cx="100" cy="100" r="90" stroke="rgba(0, 240, 255, 0.05)" stroke-width="1" fill="none" />
+          <circle cx="100" cy="100" r="70" stroke="rgba(0, 240, 255, 0.03)" stroke-width="1" fill="none" stroke-dasharray="4 4" />
+          
+          <!-- Outer telemetries -->
+          <path d="M 20 100 A 80 80 0 0 1 180 100" stroke="rgba(0, 240, 255, 0.08)" stroke-width="2" fill="none" stroke-dasharray="10 5" />
+          <path d="M 20 100 A 80 80 0 0 0 180 100" stroke="rgba(255, 0, 85, 0.08)" stroke-width="1" fill="none" stroke-dasharray="2 6" />
+
+          <!-- Cyborg body paths (Brain, Eye, Arm, Skeleton) -->
+          <!-- 1. Head / Neural Core (Path 1) -->
+          <path class="blueprint-part" id="part-neural" d="M 90 40 C 90 35, 100 25, 110 40 C 115 45, 110 55, 100 55 C 90 55, 85 45, 90 40 Z M 100 25 L 100 20 M 110 32 L 118 28 M 90 32 L 82 28" />
+          
+          <!-- 2. Optical Eye Sensor (Path 2) -->
+          <circle class="blueprint-part" id="part-optics" cx="105" cy="38" r="4" />
+          <line class="blueprint-part" id="part-optics-line" x1="109" y1="38" x2="125" y2="38" stroke="rgba(0, 240, 255, 0.2)" stroke-width="1" />
+          
+          <!-- 3. Bionic Arm / Chassis Spine (Path 3) -->
+          <path class="blueprint-part" id="part-kinetic" d="M 100 55 L 100 120 M 100 65 L 125 75 L 130 115 L 120 135 M 100 75 L 75 85 L 70 120 M 100 85 L 115 95 M 100 100 L 85 105" />
+          
+          <!-- 4. Nanosteel Armor Outline (Path 4) -->
+          <path class="blueprint-part" id="part-armor" d="M 85 55 C 80 70, 75 85, 75 125 L 90 145 L 100 160 L 110 145 L 125 125 C 125 85, 120 70, 115 55 Z" />
+        </svg>
+      </div>
+
+      <!-- Scrollytelling steps that trigger blueprint highlights -->
+      <div class="blueprint-scroll-content">
+        <!-- Step 1 -->
+        <div class="scroll-step active" id="step-01">
+          <span class="step-num mono">PHASE 01 // CRITICAL</span>
+          <h3 class="step-title">NEURAL CONNECTIVITY MAPPING</h3>
+          <p class="step-desc">
+            We begin with sub-millimeter MRI diagnostics to trace synaptic pathways. Micro-electrodes are aligned with cognitive cores to map neurological triggers, laying the foundation for zero-latency neural interface synchronization.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="scroll-step" id="step-02">
+          <span class="step-num mono">PHASE 02 // SENSORY</span>
+          <h3 class="step-title">RETINAL HUD INTEGRATION</h3>
+          <p class="step-desc">
+            Replacement of natural lens cells with cybernetic crystalline ocular arrays. Features micro-spectrometers, multi-spectrum filters, and digital telemetrics. Displays environmental coordinates overlay directly to visual sensory cortex.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="scroll-step" id="step-03">
+          <span class="step-num mono">PHASE 03 // MOTOR</span>
+          <h3 class="step-title">CARBON-FIBER MOTOR CHASSIS</h3>
+          <p class="step-desc">
+            Replacement of structural skeletal bone paths with lightweight carbon-composite frames and high-torque pneumatic servos. Amplifies physical lifts, jump-boost reflexes, and optimizes speed outputs to near superhuman speeds.
+          </p>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="scroll-step" id="step-04">
+          <span class="step-num mono">PHASE 04 // DEFENSIVE</span>
+          <h3 class="step-title">NANODERMAL ARMOR SHIELD</h3>
+          <p class="step-desc">
+            Infusion of graphene-engineered nanosteel shields inside the epidermal layers. Designed for thermal resistance and shock absorption. The armor system triggers instantaneous harden signals upon kinetic impact.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       FEATURES SECTION (IMPLANT GRID)
+       ========================================== -->
+  <section class="features-section" id="features">
+    <div class="section-header">
+      <span class="section-label">IMPLANT SPECIFICATIONS</span>
+      <h2 class="section-title">THE CORE AUGMENT ARCHITECTURE</h2>
+    </div>
+
+    <div class="features-grid">
+      <!-- Feature Card 1 -->
+      <div class="feature-card">
+        <svg class="feature-icon" viewBox="0 0 24 24">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+        </svg>
+        <h3 class="feature-title">SYNAPSE OVERCLOCK</h3>
+        <p class="feature-desc">Overclocks standard synaptic bandwidths to process external tactile stimuli at 1.4 milliseconds. Zero jitter lag.</p>
+        <div class="feature-meta">
+          <span>PORT: A1</span>
+          <span class="green-glow">STABLE</span>
+        </div>
+      </div>
+
+      <!-- Feature Card 2 -->
+      <div class="feature-card overdrive">
+        <svg class="feature-icon" viewBox="0 0 24 24">
+          <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/>
+        </svg>
+        <h3 class="feature-title">OVERDRIVE SHIELD</h3>
+        <p class="feature-desc">Triggers defensive energy shields, absorbing up to 500 kilo-joules of kinetic impact forces upon critical breach.</p>
+        <div class="feature-meta">
+          <span>PORT: F4</span>
+          <span class="magenta-glow">OVERCLOCK</span>
+        </div>
+      </div>
+
+      <!-- Feature Card 3 -->
+      <div class="feature-card">
+        <svg class="feature-icon" viewBox="0 0 24 24">
+          <path d="M12 3v9.28c-.47-.17-.97-.28-1.5-.28C8.01 12 6 14.01 6 16.5S8.01 21 10.5 21 15 18.99 15 16.5V6h4V3h-7z"/>
+        </svg>
+        <h3 class="feature-title">BIO-BATTERY CORES</h3>
+        <p class="feature-desc">Integrated micro-nuclear batteries that draw energy from thermal bloodstream paths. Lifetime guarantee.</p>
+        <div class="feature-meta">
+          <span>PORT: C7</span>
+          <span class="green-glow">STABLE</span>
+        </div>
+      </div>
+
+      <!-- Feature Card 4 -->
+      <div class="feature-card">
+        <svg class="feature-icon" viewBox="0 0 24 24">
+          <path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 9H3V5h9v7zm9 7h-9v-7h9v7z"/>
+        </svg>
+        <h3 class="feature-title">TACTICAL SCANNER</h3>
+        <p class="feature-desc">Thermal and structural detection scanner maps environmental features up to 300 meters away, even behind concrete.</p>
+        <div class="feature-meta">
+          <span>PORT: B5</span>
+          <span class="green-glow">STABLE</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       DIAGNOSTICS MONITOR (TELEMETRY SIMULATOR)
+       ========================================== -->
+  <section class="diagnostics-section" id="diagnostics">
+    <div class="section-header">
+      <span class="section-label">LIVE MATRIX DATA</span>
+      <h2 class="section-title">CHASSIS DIAGNOSTICS</h2>
+    </div>
+
+    <div class="diagnostics-panel">
+      <!-- Live wave monitor canvas on left -->
+      <div class="monitor-view">
+        <div class="monitor-header">
+          <span class="mono cyan-glow">WAVEFORM FEED // CH_04</span>
+          <span class="mono text-muted" id="current-timestamp">14:52:51</span>
+        </div>
+
+        <div class="monitor-waveform">
+          <canvas class="waveform-canvas" id="telemetry-canvas"></canvas>
+        </div>
+
+        <!-- Telemetry indicators grid -->
+        <div class="monitor-stats">
+          <div class="diag-stat-card">
+            <div class="diag-stat-label">SYNAPSE TEMP</div>
+            <div class="diag-stat-val text-primary" id="diag-temp">37.2°C</div>
+          </div>
+          <div class="diag-stat-card">
+            <div class="diag-stat-label">FREQ RESISTANCE</div>
+            <div class="diag-stat-val text-primary" id="diag-freq">98.5%</div>
+          </div>
+          <div class="diag-stat-card">
+            <div class="diag-stat-label">POWER DRAW</div>
+            <div class="diag-stat-val text-primary" id="diag-draw">4.2 W</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real time logging panel on right -->
+      <div class="console-view">
+        <div class="console-header">
+          <span class="mono">SYSTEM RECOGNITION CONSOLE</span>
+          <span class="mono green-glow">RECEIVING...</span>
+        </div>
+
+        <div class="console-log" id="diag-console-log">
+          <!-- Dynamically filled terminal console logs by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       INTERACTIVE COST CONFIGURATOR (SLIDERS)
+       ========================================== -->
+  <section class="configurator-section" id="configurator">
+    <div class="section-header">
+      <span class="section-label">COST CALCULATOR</span>
+      <h2 class="section-title">SPECIFICATION CONFIGURATOR</h2>
+    </div>
+
+    <div class="configurator-container">
+      <!-- Controls on left -->
+      <div class="slider-container">
+        <!-- Slider 1 -->
+        <div class="slider-group">
+          <div class="slider-label-row">
+            <span class="slider-name">REFLEX AMPLIFICATION</span>
+            <span class="slider-value" id="val-slide-reflex">50%</span>
+          </div>
+          <input type="range" id="slide-reflex" min="10" max="100" value="50" step="5">
+        </div>
+
+        <!-- Slider 2 -->
+        <div class="slider-group">
+          <div class="slider-label-row">
+            <span class="slider-name">CORE SYNAPSE FREQUENCY</span>
+            <span class="slider-value" id="val-slide-freq">2.4 GHz</span>
+          </div>
+          <input type="range" id="slide-freq" min="10" max="80" value="24" step="2">
+        </div>
+
+        <!-- Slider 3 -->
+        <div class="slider-group">
+          <div class="slider-label-row">
+            <span class="slider-name">STRUCTURAL INTEGRITY (GRAPHENE)</span>
+            <span class="slider-value" id="val-slide-integrity">40%</span>
+          </div>
+          <input type="range" id="slide-integrity" min="10" max="100" value="40" step="5">
+        </div>
+      </div>
+
+      <!-- Output Summary on right -->
+      <div class="summary-panel">
+        <h3 class="summary-title mono cyan-glow">UPGRADE SUMMARY</h3>
+        
+        <div class="summary-list">
+          <div class="summary-row">
+            <span class="label">ESTIMATED MAINTENANCE INTERVAL</span>
+            <span class="val" id="sum-maintenance">480 Hrs</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">POWER CONSUMPTION RATE</span>
+            <span class="val" id="sum-power">6.2 W/h</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">COGNITIVE LATENCY INDEX</span>
+            <span class="val" id="sum-latency">1.8 ms</span>
+          </div>
+        </div>
+
+        <div class="summary-total">
+          <span class="total-label mono">TOTAL CREDITS REQUIRED:</span>
+          <span class="total-value" id="sum-total-credits">14,200 CR</span>
+        </div>
+
+        <button class="btn btn-magenta" id="slider-sync-cta">TRANSMIT CONFIG LOADOUT</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       FAQ SECTION (SYNAPTIC OVERRIDES)
+       ========================================== -->
+  <section class="faq-section" id="faq">
+    <div class="section-header">
+      <span class="section-label">FAQ OVERRIDES</span>
+      <h2 class="section-title">COMMON PROTOCOLS & OVERRIDES</h2>
+    </div>
+
+    <div class="faq-container">
+      <!-- FAQ 1 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>Are Neurasynapse implants reversible?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Most kinetic and sensory hardware can be easily extracted or replaced in outpatient lab operations. However, Level-3 Neural Core overlays modify cerebral neural channels permanently to guarantee optimal overclocking speed.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>What is the risk of rogue AI or virus infection?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Every neural core is isolated behind a double-layered hardware firewall. A sandbox environment isolates all external deck ports. Software overrides require a physical security key directly connected to the user's primary interface port.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 3 -->
+      <div class="faq-item">
+        <button class="faq-question">
+          <span>How are cybernetic chassis powered?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+        </button>
+        <div class="faq-answer">
+          <div class="faq-answer-inner">
+            Our bionic components draw power from bio-battery cells. These cells absorb electrical charges from blood thermals and cellular kinetic motion. For heavy kinetic loads, you can upgrade to local sub-dermal battery nodes.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       FOOTER & NEWSLETTER
+       ========================================== -->
+  <footer class="footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <svg viewBox="0 0 24 24" stroke="currentColor">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+          </svg>
+          <span class="mono cyan-glow">NEURASYNAPSE</span>
+        </div>
+        <p class="footer-desc">
+          Advancing transhumanism via high-precision mechanical interfaces and medical neural engineering. Evolve beyond biology.
+        </p>
+      </div>
+
+      <div class="footer-nav">
+        <span class="footer-heading">NAVIGATION</span>
+        <ul class="footer-links">
+          <li><a href="#hero">System Boot</a></li>
+          <li><a href="#lab">Augmentation Lab</a></li>
+          <li><a href="#blueprints">Schematics</a></li>
+          <li><a href="#diagnostics">Chassis Telemetry</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-nav">
+        <span class="footer-heading">LEGAL DECK</span>
+        <ul class="footer-links">
+          <li><a href="#faq">Synaptic Overrides</a></li>
+          <li><a href="#faq">Implant Warranty</a></li>
+          <li><a href="#faq">Privacy Sandbox</a></li>
+          <li><a href="#faq">Terminal Security</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-newsletter">
+        <span class="footer-heading">SYNC DISPATCHES</span>
+        <p class="footer-desc" style="margin-bottom: 8px;">Subscribe to receive synaptic news updates and security patch notifications.</p>
+        <form class="newsletter-form" id="newsletter-form">
+          <input class="newsletter-input" type="email" placeholder="SUBJECT@DOMAIN.EXT" required aria-label="Enter your email">
+          <button class="btn btn-magenta" type="submit">SUBSCRIBE</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span class="footer-copy mono">&copy; 2026 NEURASYNAPSE SYSTEMS INC. ALL SECURE IMPLANTS REGISTERED.</span>
+      <span class="footer-legal-note">
+        WARNING: Augmentation surgery involves risk of neural feed disruptions, memory leaks, and phantom sensory triggers. Ensure your deck firewalls are configured to standard safety ports. Neurasynapse does not assume responsibility for cyber-psychic events.
+      </span>
+    </div>
+  </footer>
+
+  <script src="index.js"></script>
+</body>
+</html>
