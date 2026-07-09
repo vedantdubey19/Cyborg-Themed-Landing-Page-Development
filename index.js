@@ -387,7 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // INITIALIZE THREE.JS WEBGL MAINFRAME ENGINE
   // ==========================================
   const threeCanvas = document.getElementById('three-canvas');
-  let scene, camera, renderer, coreGroup, coreMesh, particleSystem, particleGeometry;
+  let scene, camera, renderer, coreGroup, coreMesh, particleSystem, particleGeometry, originalPositions;
   
   // Variables to hold current animations/positions for LERPing
   let scrollPercent = 0;
@@ -460,6 +460,7 @@ document.addEventListener('DOMContentLoaded', () => {
       colors[i+2] = mixColor.b;
     }
     
+    originalPositions = positions.slice();
     particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
     
@@ -514,6 +515,30 @@ document.addEventListener('DOMContentLoaded', () => {
     particleSystem.rotation.y -= targetPos.rotSpeed * 0.4;
     particleSystem.rotation.x -= targetPos.rotSpeed * 0.1;
 
+    // Dynamic wave morphing of particle positions in 3D (attractor pulse)
+    if (particleGeometry && originalPositions) {
+      const time = Date.now() * 0.0015;
+      const posAttr = particleGeometry.attributes.position;
+      const positions = posAttr.array;
+      for (let i = 0; i < positions.length; i += 3) {
+        const origX = originalPositions[i];
+        const origY = originalPositions[i+1];
+        const origZ = originalPositions[i+2];
+        
+        const d = Math.sqrt(origX*origX + origY*origY + origZ*origZ);
+        
+        // Compound wave formula simulates a breathing plasma node
+        positions[i]   = origX + Math.sin(time + d * 0.4) * 0.38;
+        positions[i+1] = origY + Math.cos(time * 1.2 + d * 0.3) * 0.38;
+        positions[i+2] = origZ + Math.sin(time * 0.8 + d * 0.5) * 0.38;
+      }
+      posAttr.needsUpdate = true;
+    }
+
+    // Subtle breathing pulse on the main wireframe mesh
+    const meshPulse = 1.0 + Math.sin(Date.now() * 0.002) * 0.05;
+    coreMesh.scale.set(meshPulse, meshPulse, meshPulse);
+
     // smooth camera/position LERP coordinates
     currentPos.x += (targetPos.x - currentPos.x) * 0.06;
     currentPos.y += (targetPos.y - currentPos.y) * 0.06;
@@ -523,7 +548,7 @@ document.addEventListener('DOMContentLoaded', () => {
     currentPos.rotSpeed += (targetPos.rotSpeed - currentPos.rotSpeed) * 0.06;
 
     coreGroup.position.set(currentPos.x, currentPos.y, currentPos.z);
-    coreGroup.scale.set(currentPos.scale, currentPos.scale, currentPos.scale);
+    coreGroup.scale.set(currentPos.scale * meshPulse, currentPos.scale * meshPulse, currentPos.scale * meshPulse);
     
     // Extra mouse-follow displacement (subtle attractor)
     if (window.innerWidth > 992) {
@@ -881,7 +906,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Tilt calculations on Mouse Move over Card
+  // Tilt calculations on Mouse Move over Card (Advanced Holographic Glare)
   if (ticketCard) {
     const handleTicketTilt = (e) => {
       const rect = ticketCard.getBoundingClientRect();
@@ -892,16 +917,22 @@ document.addEventListener('DOMContentLoaded', () => {
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
       
-      // Rotate bounds: max 25 degrees
+      // Rotate bounds: max 20 degrees
       const rotX = ((centerY - y) / centerY) * 20;
       const rotY = ((x - centerX) / centerX) * 20;
       
-      ticketCard.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`;
+      ticketCard.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.03, 1.03, 1.03)`;
       
-      // Glare reflection mapping
+      // Advanced foil glare reflection mapping (diagonal linear gradient shifting in sync with coordinates)
       const pctX = (x / rect.width) * 100;
       const pctY = (y / rect.height) * 100;
-      ticketGlare.style.background = `radial-gradient(circle at ${pctX}% ${pctY}%, rgba(255, 255, 255, 0.18) 0%, transparent 65%)`;
+      
+      // Compound radial highlight spot + shifting diagonal color foil gradients
+      const sheenGrad = `
+        radial-gradient(circle at ${pctX}% ${pctY}%, rgba(255, 255, 255, 0.25) 0%, rgba(0, 240, 255, 0.08) 35%, transparent 70%),
+        linear-gradient(${135 + (pctX - 50) * 0.4}deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.08) 40%, rgba(0, 240, 255, 0.12) 50%, rgba(255, 0, 85, 0.1) 60%, rgba(255, 255, 255, 0) 100%)
+      `;
+      ticketGlare.style.background = sheenGrad;
     };
     
     const resetTicketTilt = () => {
